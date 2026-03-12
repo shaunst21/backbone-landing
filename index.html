@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backbone AI - Never Miss a Call Again</title>
+    <meta name="description" content="AI receptionist for plumbers, electricians, and HVAC contractors. Answers calls 24/7, books appointments, captures leads.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; }
+        
+        .hero {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 20px; max-width: 700px; margin-left: auto; margin-right: auto; }
+        .hero p { font-size: 1.2rem; opacity: 0.9; max-width: 500px; margin: 0 auto 30px; }
+        
+        .cta-button {
+            background: #10b981;
+            color: white;
+            padding: 18px 45px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .cta-button:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(16,185,129,0.4); }
+        .cta-button.secondary { background: transparent; border: 2px solid white; }
+        .cta-button.secondary:hover { background: rgba(255,255,255,0.1); }
+        
+        .demo-box {
+            margin-top: 40px;
+            padding: 25px 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            display: inline-block;
+        }
+        .demo-box span { display: block; font-size: 0.9rem; opacity: 0.8; margin-bottom: 8px; }
+        .demo-box strong { font-size: 1.8rem; letter-spacing: 1px; }
+        
+        .social-proof {
+            background: #f8fafc;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .social-proof p { font-size: 1.1rem; color: #64748b; }
+        
+        .problem {
+            padding: 80px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .problem h2 { font-size: 2rem; margin-bottom: 30px; color: #1a1a2e; }
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .problem-card {
+            padding: 30px;
+            background: #fef2f2;
+            border-radius: 12px;
+            border-left: 4px solid #ef4444;
+        }
+        .problem-card h3 { color: #ef4444; margin-bottom: 10px; }
+        
+        .solution {
+            background: #f0fdf4;
+            padding: 80px 20px;
+        }
+        .solution-inner { max-width: 900px; margin: 0 auto; }
+        .solution h2 { font-size: 2rem; margin-bottom: 30px; text-align: center; color: #166534; }
+        .solution-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .solution-card {
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .solution-card h3 { font-size: 1.2rem; margin-bottom: 10px; color: #166534; }
+        
+        .how-it-works {
+            padding: 80px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .how-it-works h2 { text-align: center; font-size: 2rem; margin-bottom: 50px; }
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: #10b981;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        .step-content h3 { margin-bottom: 5px; }
+        
+        .pricing {
+            background: #1a1a2e;
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+        .pricing h2 { font-size: 2rem; margin-bottom: 15px; }
+        .pricing .subtitle { opacity: 0.8; margin-bottom: 50px; }
+        .price-cards {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .price-card {
+            background: white;
+            color: #333;
+            padding: 35px;
+            border-radius: 16px;
+            width: 300px;
+            text-align: left;
+        }
+        .price-card.featured {
+            border: 3px solid #10b981;
+            transform: scale(1.05);
+        }
+        .price-card h3 { font-size: 1.4rem; margin-bottom: 10px; }
+        .price-card .price { font-size: 2.8rem; font-weight: bold; color: #1a1a2e; }
+        .price-card .price span { font-size: 1rem; font-weight: normal; opacity: 0.7; }
+        .price-card ul { list-style: none; margin: 25px 0; }
+        .price-card li { padding: 10px 0; border-bottom: 1px solid #eee; }
+        .price-card li:before { content: "✓ "; color: #10b981; font-weight: bold; }
+        .price-card .cta-button { width: 100%; text-align: center; margin-top: 20px; }
+        
+        .guarantee {
+            padding: 60px 20px;
+            text-align: center;
+            background: #fefce8;
+        }
+        .guarantee h2 { color: #854d0e; margin-bottom: 15px; }
+        .guarantee p { max-width: 600px; margin: 0 auto; color: #713f12; }
+        
+        .final-cta {
+            padding: 80px 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+        }
+        .final-cta h2 { font-size: 2.2rem; margin-bottom: 20px; }
+        .final-cta p { font-size: 1.2rem; opacity: 0.9; margin-bottom: 30px; }
+        .final-cta .cta-button { background: white; color: #059669; }
+        
+        .footer {
+            background: #1a1a2e;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .footer a { color: #10b981; text-decoration: none; }
+        
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 1.8rem; }
+            .price-card.featured { transform: none; }
+            .step { flex-direction: column; text-align: center; }
+            .step-number { margin: 0 auto; }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <h1>Stop Losing Jobs to Missed Calls</h1>
+        <p>AI receptionist that answers your phone 24/7, books appointments, and sounds like a real person.</p>
+        
+        <a href="tel:+15078169525" class="cta-button">📞 Call Demo: (507) 816-9525</a>
+        <a href="#pricing" class="cta-button secondary">See Pricing</a>
+        
+        <div class="demo-box">
+            <span>🎧 Hear it yourself - call now:</span>
+            <strong>(507) 816-9525</strong>
+        </div>
+    </section>
+    
+    <section class="social-proof">
+        <p>🔧 Built specifically for plumbers, electricians, HVAC contractors, and service businesses</p>
+    </section>
+    
+    <section class="problem">
+        <h2>Every Missed Call Costs You Money</h2>
+        <p>You're great at your trade. But when you're on a roof, under a sink, or in a crawl space — you can't answer the phone.</p>
+        
+        <div class="problem-grid">
+            <div class="problem-card">
+                <h3>📵 Missed Calls</h3>
+                <p>Industry data shows contractors miss 20-30% of incoming calls. That's 1 in 4 potential jobs.</p>
+            </div>
+            <div class="problem-card">
+                <h3>💸 Lost Revenue</h3>
+                <p>At $300 per average job, missing just 5 calls a week means $6,000/month walking out the door.</p>
+            </div>
+            <div class="problem-card">
+                <h3>😤 Frustrated Customers</h3>
+                <p>When people need a plumber, they need one NOW. If you don't answer, they call the next guy.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="solution">
+        <div class="solution-inner">
+            <h2>✅ Backbone Answers Every Call</h2>
+            
+            <div class="solution-grid">
+                <div class="solution-card">
+                    <h3>📞 24/7 Coverage</h3>
+                    <p>Every call gets answered professionally — 6am, 2pm, midnight. No more voicemail.</p>
+                </div>
+                <div class="solution-card">
+                    <h3>🤖 Sounds Human</h3>
+                    <p>Advanced AI that has natural conversations. Callers think they're talking to a real receptionist.</p>
+                </div>
+                <div class="solution-card">
+                    <h3>📅 Books Appointments</h3>
+                    <p>Captures their info, understands their problem, and schedules them on your calendar.</p>
+                </div>
+                <div class="solution-card">
+                    <h3>📱 Instant Alerts</h3>
+                    <p>Get a text immediately with caller details — name, number, address, what they need.</p>
+                </div>
+                <div class="solution-card">
+                    <h3>🚨 Handles Emergencies</h3>
+                    <p>Recognizes urgent situations and prioritizes them. You'll know immediately.</p>
+                </div>
+                <div class="solution-card">
+                    <h3>📊 Call Recordings</h3>
+                    <p>Every call is recorded. Review conversations, train your team, never miss details.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="how-it-works">
+        <h2>How It Works</h2>
+        
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>You Get a Dedicated Number</h3>
+                    <p>We set up your AI receptionist with a local phone number. Forward your calls or use it directly.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>AI Answers Every Call</h3>
+                    <p>Professional greeting, natural conversation, captures all their information.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>You Get Notified Instantly</h3>
+                    <p>Text and email with lead details. Call them back when you're free.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>Book More Jobs</h3>
+                    <p>Stop losing customers to voicemail. Turn every call into revenue.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="pricing" id="pricing">
+        <h2>Simple Pricing</h2>
+        <p class="subtitle">14-day free trial. Cancel anytime.</p>
+        
+        <div class="price-cards">
+            <div class="price-card">
+                <h3>Starter</h3>
+                <div class="price">$297<span>/mo</span></div>
+                <ul>
+                    <li>AI Receptionist</li>
+                    <li>24/7 Call Answering</li>
+                    <li>Appointment Scheduling</li>
+                    <li>Text Notifications</li>
+                    <li>Call Recordings</li>
+                    <li>Lead Dashboard</li>
+                </ul>
+                <a href="https://buy.stripe.com/test_8x29AU1oa93d8wFd8o8EM00" class="cta-button">Start Free Trial</a>
+            </div>
+            
+            <div class="price-card featured">
+                <h3>Growth ⭐</h3>
+                <div class="price">$497<span>/mo</span></div>
+                <ul>
+                    <li>Everything in Starter</li>
+                    <li>Missed Call Follow-ups</li>
+                    <li>Quote Follow-ups</li>
+                    <li>Review Requests</li>
+                    <li>SMS Campaigns</li>
+                    <li>Priority Support</li>
+                </ul>
+                <a href="https://buy.stripe.com/test_aFacN66IubbldQZ5FW8EM01" class="cta-button">Start Free Trial</a>
+            </div>
+            
+            <div class="price-card">
+                <h3>Pro</h3>
+                <div class="price">$797<span>/mo</span></div>
+                <ul>
+                    <li>Everything in Growth</li>
+                    <li>Multiple Locations</li>
+                    <li>Custom Integrations</li>
+                    <li>Dedicated Account Rep</li>
+                    <li>White-glove Setup</li>
+                    <li>Advanced Analytics</li>
+                </ul>
+                <a href="https://buy.stripe.com/test_6oU28s5Eqcfp4gpecs8EM02" class="cta-button">Start Free Trial</a>
+            </div>
+        </div>
+    </section>
+    
+    <section class="guarantee">
+        <h2>🛡️ Risk-Free Guarantee</h2>
+        <p>Try Backbone free for 14 days. If it doesn't book you at least one job you would've missed, cancel with one click. No questions, no hassle.</p>
+    </section>
+    
+    <section class="final-cta">
+        <h2>Ready to Stop Missing Calls?</h2>
+        <p>Join contractors across Ohio who never miss a lead.</p>
+        <a href="tel:+15078169525" class="cta-button">📞 Call Demo: (507) 816-9525</a>
+    </section>
+    
+    <footer class="footer">
+        <p><strong>Backbone AI</strong> — The backbone of your business.</p>
+        <p style="margin-top: 15px;">
+            📞 <a href="tel:+15078169525">(507) 816-9525</a> | 
+            📧 <a href="mailto:fooseclaw@gmail.com">fooseclaw@gmail.com</a>
+        </p>
+        <p style="margin-top: 25px; opacity: 0.6; font-size: 0.9rem;">© 2026 Backbone AI. All rights reserved.</p>
+    </footer>
+</body>
+</html>
