@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Started with Backbone AI</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #1a1a2e;
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+        }
+        .subtitle {
+            color: #64748b;
+            margin-bottom: 30px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .section:last-of-type {
+            border-bottom: none;
+            margin-bottom: 20px;
+        }
+        .section-title {
+            font-weight: 600;
+            color: #1a1a2e;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: #374151;
+            font-size: 0.95rem;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-bottom: 16px;
+            transition: border-color 0.2s;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #10b981;
+        }
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        @media (max-width: 500px) {
+            .row { grid-template-columns: 1fr; }
+        }
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 16px;
+        }
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 0;
+            cursor: pointer;
+        }
+        .radio-group input {
+            width: auto;
+            margin-bottom: 0;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: #10b981;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+        }
+        .submit-btn:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+        .submit-btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .helper-text {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-top: -12px;
+            margin-bottom: 16px;
+        }
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+        .success-message h2 {
+            color: #10b981;
+            margin-bottom: 15px;
+        }
+        .success-message p {
+            color: #64748b;
+            margin-bottom: 10px;
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .logo span {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #1a1a2e;
+        }
+        .required::after {
+            content: " *";
+            color: #ef4444;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <span>🦴 Backbone AI</span>
+        </div>
+        
+        <form id="intakeForm">
+            <h1>Let's Get You Set Up</h1>
+            <p class="subtitle">Tell us about your business and we'll have your AI assistant ready in 24 hours.</p>
+            
+            <div class="section">
+                <div class="section-title">📋 Business Information</div>
+                
+                <label class="required" for="businessName">Business Name</label>
+                <input type="text" id="businessName" name="businessName" required placeholder="Joe's Plumbing">
+                
+                <div class="row">
+                    <div>
+                        <label class="required" for="ownerName">Owner Name</label>
+                        <input type="text" id="ownerName" name="ownerName" required placeholder="Joe Smith">
+                    </div>
+                    <div>
+                        <label class="required" for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required placeholder="(330) 555-1234">
+                    </div>
+                </div>
+                
+                <label class="required" for="email">Email</label>
+                <input type="email" id="email" name="email" required placeholder="joe@joesplumbing.com">
+                
+                <div class="row">
+                    <div>
+                        <label class="required" for="businessType">Business Type</label>
+                        <select id="businessType" name="businessType" required>
+                            <option value="">Select...</option>
+                            <option value="plumber">Plumber</option>
+                            <option value="electrician">Electrician</option>
+                            <option value="hvac">HVAC</option>
+                            <option value="general_contractor">General Contractor</option>
+                            <option value="handyman">Handyman</option>
+                            <option value="roofer">Roofer</option>
+                            <option value="landscaper">Landscaper</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="yearsInBusiness">Years in Business</label>
+                        <input type="number" id="yearsInBusiness" name="yearsInBusiness" placeholder="5">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">🔧 Service Details</div>
+                
+                <label class="required" for="services">Services Offered</label>
+                <input type="text" id="services" name="services" required placeholder="Drain cleaning, water heaters, pipe repair, leak detection">
+                
+                <label class="required" for="serviceArea">Service Area (cities or zip codes)</label>
+                <input type="text" id="serviceArea" name="serviceArea" required placeholder="Akron, Canton, and surrounding areas">
+                
+                <label for="businessHours">Business Hours</label>
+                <input type="text" id="businessHours" name="businessHours" placeholder="Mon-Fri 8am-6pm, Sat 9am-2pm">
+                
+                <label>Do you offer emergency services?</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="emergency" value="yes"> Yes, 24/7</label>
+                    <label><input type="radio" name="emergency" value="limited"> Limited hours</label>
+                    <label><input type="radio" name="emergency" value="no"> No</label>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">📞 Current Situation</div>
+                
+                <label for="currentSetup">How are calls currently handled?</label>
+                <input type="text" id="currentSetup" name="currentSetup" placeholder="I answer when I can, voicemail otherwise">
+                
+                <label for="missedCalls">Estimated missed calls per week</label>
+                <input type="number" id="missedCalls" name="missedCalls" placeholder="10">
+                
+                <label for="website">Current website (if any)</label>
+                <input type="url" id="website" name="website" placeholder="https://joesplumbing.com">
+                
+                <label for="painPoints">Biggest pain points running your business?</label>
+                <textarea id="painPoints" name="painPoints" placeholder="I miss too many calls when I'm on jobs. Customers go to competitors. I forget to follow up on quotes..."></textarea>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">🎯 What You Want From Backbone</div>
+                
+                <label class="required" for="goals">Describe your ideal setup</label>
+                <textarea id="goals" name="goals" required placeholder="I want every call answered professionally, even at night. I want automatic follow-ups on quotes. I want to be able to text my AI to check my schedule and send quotes. I want help getting more reviews..."></textarea>
+                <p class="helper-text">Be specific! This helps us customize your AI assistant perfectly for your business.</p>
+                
+                <label for="preferredTier">Which plan are you interested in?</label>
+                <select id="preferredTier" name="preferredTier">
+                    <option value="growth">Growth - $497/mo (Most Popular)</option>
+                    <option value="starter">Starter - $297/mo</option>
+                    <option value="pro">Pro - $797/mo</option>
+                    <option value="unsure">Not sure yet - let's talk</option>
+                </select>
+            </div>
+            
+            <input type="hidden" id="referralCode" name="referralCode" value="">
+            
+            <button type="submit" class="submit-btn">Start My Free Trial →</button>
+            <p style="text-align: center; margin-top: 15px; color: #64748b; font-size: 0.9rem;">
+                14-day free trial. No credit card required to start.
+            </p>
+        </form>
+        
+        <div class="success-message" id="successMessage">
+            <h2>🎉 You're In!</h2>
+            <p>Thanks for signing up! We're setting up your AI assistant now.</p>
+            <p><strong>What happens next:</strong></p>
+            <p>1. We'll review your info (usually within a few hours)</p>
+            <p>2. You'll get a text with your new Backbone number</p>
+            <p>3. Start talking to your AI and watch the magic happen</p>
+            <p style="margin-top: 20px; padding: 15px; background: #f0fdf4; border-radius: 8px;">
+                Questions? Text us at <strong>(507) 816-9525</strong>
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        // Get referral code from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const ref = urlParams.get('ref');
+        if (ref) {
+            document.getElementById('referralCode').value = ref;
+        }
+        
+        // Handle form submission
+        document.getElementById('intakeForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const btn = document.querySelector('.submit-btn');
+            btn.disabled = true;
+            btn.textContent = 'Submitting...';
+            
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+            
+            try {
+                // Send to Mission Control API
+                // For now, we'll simulate success and log the data
+                console.log('Form submitted:', data);
+                
+                // In production, this would be:
+                // await fetch('https://your-mission-control.com/api/backbone/intake', {
+                //     method: 'POST',
+                //     headers: { 'Content-Type': 'application/json' },
+                //     body: JSON.stringify(data)
+                // });
+                
+                // For now, send via email as backup
+                const emailBody = encodeURIComponent(JSON.stringify(data, null, 2));
+                
+                // Show success message
+                document.getElementById('intakeForm').style.display = 'none';
+                document.getElementById('successMessage').style.display = 'block';
+                
+                // Also open email client as backup (remove in production)
+                // window.location.href = `mailto:fooseclaw@gmail.com?subject=New Backbone Lead: ${data.businessName}&body=${emailBody}`;
+                
+            } catch (error) {
+                console.error('Error:', error);
+                btn.disabled = false;
+                btn.textContent = 'Start My Free Trial →';
+                alert('Something went wrong. Please try again or call (507) 816-9525');
+            }
+        });
+    </script>
+</body>
+</html>
