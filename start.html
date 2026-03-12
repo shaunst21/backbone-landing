@@ -293,25 +293,33 @@
             
             try {
                 // Send to Mission Control API
-                // For now, we'll simulate success and log the data
+                const response = await fetch('http://localhost:3000/api/trpc/backbone.intake', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                
+                // Also send email notification as backup
+                const emailSubject = encodeURIComponent(`New Backbone Lead: ${data.businessName}`);
+                const emailBody = encodeURIComponent(
+                    `New lead from intake form:\n\n` +
+                    `Business: ${data.businessName}\n` +
+                    `Owner: ${data.ownerName}\n` +
+                    `Phone: ${data.phone}\n` +
+                    `Email: ${data.email}\n` +
+                    `Type: ${data.businessType}\n` +
+                    `Goals: ${data.goals}\n` +
+                    `Tier: ${data.preferredTier}\n` +
+                    `Referral: ${data.referralCode || 'Direct'}`
+                );
+                
+                // Send email via backend or direct
+                // For now, log and show success
                 console.log('Form submitted:', data);
-                
-                // In production, this would be:
-                // await fetch('https://your-mission-control.com/api/backbone/intake', {
-                //     method: 'POST',
-                //     headers: { 'Content-Type': 'application/json' },
-                //     body: JSON.stringify(data)
-                // });
-                
-                // For now, send via email as backup
-                const emailBody = encodeURIComponent(JSON.stringify(data, null, 2));
                 
                 // Show success message
                 document.getElementById('intakeForm').style.display = 'none';
                 document.getElementById('successMessage').style.display = 'block';
-                
-                // Also open email client as backup (remove in production)
-                // window.location.href = `mailto:fooseclaw@gmail.com?subject=New Backbone Lead: ${data.businessName}&body=${emailBody}`;
                 
             } catch (error) {
                 console.error('Error:', error);
